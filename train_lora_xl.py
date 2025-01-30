@@ -42,8 +42,8 @@ def train(
     prompts: list[PromptSettings],
 ):
     metadata = {
-        "prompts": ",".join([prompt.json() for prompt in prompts]),
-        "config": config.json(),
+        "prompts": ",".join([prompt.model_dump_json() for prompt in prompts]),
+        "config": config.model_dump_json(),
     }
     save_path = Path(config.save.path)
 
@@ -98,7 +98,9 @@ def train(
             value = ast.literal_eval(value)
             optimizer_kwargs[key] = value
             
-    optimizer = optimizer_module(network.prepare_optimizer_params(), lr=config.train.lr, **optimizer_kwargs)
+    optimizer = optimizer_module(
+        network.prepare_optimizer_params(), lr=config.train.lr, **optimizer_kwargs
+    )
     lr_scheduler = train_util.get_lr_scheduler(
         config.train.lr_scheduler,
         optimizer,
