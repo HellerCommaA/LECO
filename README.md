@@ -12,10 +12,11 @@ and the project page: https://erasing.baulab.info/
 
 ## Setup
 
+### assumes windows
 ```bash
-conda create -n leco python=3.10
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
-pip install xformers
+python -m venv venv
+venv\scripts\activate
+pip install torch==2.4.0+cu118 torchvision==0.19.0+cu118 xformers==0.0.27+post2+cu118 --index-url https://download.pytorch.org/whl/cu118
 pip install -r requirements.txt
 ```
 
